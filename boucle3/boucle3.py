@@ -75,12 +75,12 @@ print("📉 Étape 3: VISUALISATION DES MÉTRIQUES")
 print("=" * 80)
 
 fig, axes = plt.subplots(4, 1, figsize=(15, 12))
-fig.suptitle('📊 Évolution des Métriques sur 24h - Serveurs OPTIMAL',
+fig.suptitle('Évolution des Métriques sur 24h - Serveurs OPTIMAL',
              fontsize=16, fontweight='bold', y=0.995)
 
 colors = ['#3b82f6', '#10b981', '#8b5cf6', '#ef4444']
-titles = ['CPU Usage (%)', 'Memory Usage (%)', 'Network Usage (Mb/s)', 'Temperature (°C)']
-thresholds = [80, 90, 150, 70]
+titles = ['CPU Usage (%)', 'Memory Usage (Gb)', 'Network Usage (Mb/s)', 'Temperature (°C)']
+thresholds = [80, 12, 150, 70]
 
 for i, (metric, color, title, threshold) in enumerate(zip(metrics, colors, titles, thresholds)):
     ax = axes[i]
@@ -115,7 +115,7 @@ for i, (metric, color, title, threshold) in enumerate(zip(metrics, colors, title
         ax.set_xticklabels(tick_labels, rotation=45)
 
 plt.tight_layout()
-plt.savefig('1_evolution_metriques.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/1_evolution_metriques.png', dpi=300, bbox_inches='tight')
 print("✅ Graphique sauvegardé: '1_evolution_metriques.png'")
 plt.show()
 
@@ -127,7 +127,7 @@ print("📊 Étape 4: ANALYSE DES DISTRIBUTIONS")
 print("=" * 80)
 
 fig, axes = plt.subplots(2, 4, figsize=(16, 8))
-fig.suptitle('📊 Distribution des Métriques et Tests de Normalité',
+fig.suptitle('Distribution des Métriques et Tests de Normalité',
              fontsize=16, fontweight='bold')
 
 for i, (metric, color) in enumerate(zip(metrics, colors)):
@@ -159,7 +159,7 @@ for i, (metric, color) in enumerate(zip(metrics, colors)):
                                                 facecolor='wheat', alpha=0.5))
 
 plt.tight_layout()
-plt.savefig('2_distributions.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/2_distributions.png', dpi=300, bbox_inches='tight')
 print("✅ Graphique sauvegardé: '2_distributions.png'")
 plt.show()
 
@@ -182,13 +182,13 @@ print("\n📊 Matrice de Corrélation:\n")
 print(correlation_matrix.round(3))
 
 fig, ax = plt.subplots(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, fmt='.3f', cmap='RdYlGn',
-            center=0, square=True, linewidths=2, cbar_kws={"shrink": 0.8},
-            vmin=-1, vmax=1, ax=ax)
-ax.set_title('🔗 Matrice de Corrélation des Métriques',
+sns.heatmap(correlation_matrix, annot=True, fmt='.3f', cmap='coolwarm',
+            center=0.5, square=True, linewidths=2, cbar_kws={"shrink": 0.8},
+            vmin=0, vmax=1, ax=ax)
+ax.set_title('Matrice de Corrélation des Métriques',
              fontsize=16, fontweight='bold', pad=20)
 plt.tight_layout()
-plt.savefig('3_correlation_matrix.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/3_correlation_matrix.png', dpi=300, bbox_inches='tight')
 print("\n✅ Graphique sauvegardé: '3_correlation_matrix.png'")
 plt.show()
 
@@ -211,7 +211,7 @@ print("=" * 80)
 anomaly_results = {}
 
 fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-fig.suptitle('⚠️ Détection d\'Anomalies - Z-Score et IQR',
+fig.suptitle('Détection d\'Anomalies - Z-Score et IQR',
              fontsize=16, fontweight='bold')
 axes = axes.flatten()
 
@@ -231,7 +231,7 @@ for idx, (metric, color) in enumerate(zip(metrics, colors)):
     iqr_anomalies = (values < lower_bound) | (values > upper_bound)
 
     # Seuils de vigilance
-    thresholds_dict = {'CPU_Usage': 80, 'Memory_Usage': 90,
+    thresholds_dict = {'CPU_Usage': 80, 'Memory_Usage': 12,
                        'Network_Usage': 150, 'Temperature': 70}
     threshold = thresholds_dict[metric]
     threshold_exceeded = values > threshold
@@ -265,7 +265,7 @@ for idx, (metric, color) in enumerate(zip(metrics, colors)):
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('4_anomalies_detection.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/4_anomalies_detection.png', dpi=300, bbox_inches='tight')
 print("✅ Graphique sauvegardé: '4_anomalies_detection.png'")
 plt.show()
 
@@ -281,7 +281,7 @@ print("🔮 Étape 7: MODÈLES DE PRÉDICTION")
 print("=" * 80)
 
 fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-fig.suptitle('🔮 Prédictions avec Régression Linéaire',
+fig.suptitle('Prédictions avec Régression Linéaire',
              fontsize=16, fontweight='bold')
 axes = axes.flatten()
 
@@ -305,9 +305,9 @@ for idx, (metric, color) in enumerate(zip(metrics, colors)):
     intercept = model.intercept_
 
     if abs(slope) > 0.01:
-        trend = "📈 Hausse" if slope > 0 else "📉 Baisse"
+        trend = "Hausse" if slope > 0 else "Baisse"
     else:
-        trend = "➡️ Stable"
+        trend = "Stable"
 
     prediction_results[metric] = {
         'Pente': slope,
@@ -339,7 +339,7 @@ for idx, (metric, color) in enumerate(zip(metrics, colors)):
                                                facecolor='wheat', alpha=0.5))
 
 plt.tight_layout()
-plt.savefig('5_predictions_regression.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/5_predictions_regression.png', dpi=300, bbox_inches='tight')
 print("✅ Graphique sauvegardé: '5_predictions_regression.png'")
 plt.show()
 
@@ -354,11 +354,13 @@ print("\n" + "=" * 80)
 print("⏰ Étape 8: ANALYSE DES PATTERNS TEMPORELS")
 print("=" * 80)
 
+
+df['Time'] = pd.to_datetime(df['Time'], errors='coerce')
 df['Hour'] = df['Time'].dt.hour
 hourly_stats = df.groupby('Hour')[metrics].agg(['mean', 'std', 'max'])
 
 fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-fig.suptitle('⏰ Patterns Temporels - Analyse par Heure',
+fig.suptitle('Patterns Temporels - Analyse par Heure',
              fontsize=16, fontweight='bold')
 axes = axes.flatten()
 
@@ -392,7 +394,7 @@ for idx, (metric, color) in enumerate(zip(metrics, colors)):
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('6_temporal_patterns.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/6_temporal_patterns.png', dpi=300, bbox_inches='tight')
 print("✅ Graphique sauvegardé: '6_temporal_patterns.png'")
 plt.show()
 
@@ -403,90 +405,20 @@ for metric in metrics:
     print(f"   • {metric:20s}: {peak_hour:02d}:00 ({peak_value:.2f})")
 
 # ============================================================================
-# 9. RECOMMANDATIONS
-# ============================================================================
-print("\n" + "=" * 80)
-print("💡 Étape 9: RECOMMANDATIONS D'OPTIMISATION")
-print("=" * 80)
-
-print("\n🎯 RECOMMANDATIONS PRIORITAIRES:\n")
-
-# Analyse CPU
-cpu_mean = df['CPU_Usage'].mean()
-cpu_max = df['CPU_Usage'].max()
-cpu_over_80 = (df['CPU_Usage'] > 80).sum()
-print("1️⃣  OPTIMISATION CPU:")
-print(f"   • Utilisation moyenne: {cpu_mean:.2f}%")
-print(f"   • Pic maximum: {cpu_max:.2f}%")
-print(f"   • Dépassements du seuil (>80%): {cpu_over_80} fois ({(cpu_over_80 / 1440) * 100:.1f}%)")
-if cpu_over_80 > 100:
-    print("   ⚠️  ACTION: Réorganiser les tâches intensives en dehors des heures de pic")
-print()
-
-# Analyse Mémoire
-mem_mean = df['Memory_Usage'].mean()
-mem_trend = prediction_results['Memory_Usage']['Tendance']
-print("2️⃣  GESTION MÉMOIRE:")
-print(f"   • Utilisation moyenne: {mem_mean:.2f}%")
-print(f"   • Tendance: {mem_trend}")
-if "Hausse" in mem_trend:
-    print("   ⚠️  ACTION: Surveiller les fuites mémoire potentielles")
-print()
-
-# Analyse Réseau
-net_mean = df['Network_Usage'].mean()
-net_max = df['Network_Usage'].max()
-print("3️⃣  OPTIMISATION RÉSEAU:")
-print(f"   • Trafic moyen: {net_mean:.2f} Mb/s")
-print(f"   • Pic maximum: {net_max:.2f} Mb/s")
-print("   💡 SUGGESTION: Implémenter QoS et compression pour réduire la charge")
-print()
-
-# Analyse Température
-temp_mean = df['Temperature'].mean()
-temp_max = df['Temperature'].max()
-temp_over_70 = (df['Temperature'] > 70).sum()
-print("4️⃣  GESTION THERMIQUE:")
-print(f"   • Température moyenne: {temp_mean:.2f}°C")
-print(f"   • Pic maximum: {temp_max:.2f}°C")
-if temp_over_70 > 0:
-    print(f"   ⚠️  ALERTE: {temp_over_70} dépassements du seuil (>70°C)")
-    print("   🔧 ACTION: Vérifier le système de refroidissement")
-print()
-
-# Corrélations importantes
-print("5️⃣  INSIGHTS CORRÉLATIONS:")
-cpu_temp_corr = correlation_matrix.loc['CPU_Usage', 'Temperature']
-if cpu_temp_corr > 0.7:
-    print(f"   • Forte corrélation CPU-Température ({cpu_temp_corr:.3f})")
-    print("   💡 Les pics CPU augmentent la température → Optimiser les processus")
-print()
-
-print("=" * 80)
-print("✅ PROCHAINES ÉTAPES:")
-print("=" * 80)
-print("1. Déployer des alertes automatiques basées sur les seuils identifiés")
-print("2. Créer un dashboard temps réel pour monitoring continu")
-print("3. Collecter des données sur plusieurs semaines pour patterns long terme")
-print("4. Implémenter des modèles ML avancés (ARIMA, Prophet, LSTM)")
-print("5. Optimiser la répartition des tâches selon les patterns horaires")
-print("=" * 80)
-
-# ============================================================================
-# 10. EXPORT DES RÉSULTATS
+# 9. EXPORT DES RÉSULTATS
 # ============================================================================
 print("\n📁 Étape 10: Export des résultats...")
 
 # Sauvegarder les statistiques
-stats_results.T.to_csv('resultats_statistiques.csv')
+stats_results.T.to_csv('output/resultats_statistiques.csv')
 print("✅ Statistiques exportées: 'resultats_statistiques.csv'")
 
 # Sauvegarder les anomalies
-anomaly_df.to_csv('resultats_anomalies.csv')
+anomaly_df.to_csv('output/resultats_anomalies.csv')
 print("✅ Anomalies exportées: 'resultats_anomalies.csv'")
 
 # Sauvegarder la matrice de corrélation
-correlation_matrix.to_csv('matrice_correlation.csv')
+correlation_matrix.to_csv('output/matrice_correlation.csv')
 print("✅ Corrélations exportées: 'matrice_correlation.csv'")
 
 print("\n" + "=" * 80)
@@ -494,5 +426,4 @@ print("🎉 ANALYSE TERMINÉE AVEC SUCCÈS!")
 print("=" * 80)
 print("📊 6 graphiques générés")
 print("📁 3 fichiers CSV exportés")
-print("💡 Recommandations d'optimisation fournies")
 print("=" * 80)

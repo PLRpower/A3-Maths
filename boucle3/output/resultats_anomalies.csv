@@ -1,5 +1,5 @@
-,Z-Score (>3),IQR,Seuil >80,Pourcentage,Seuil >90,Seuil >150,Seuil >70
-CPU_Usage,2.0,159.0,0.0,0.0,,,
-Memory_Usage,1.0,140.0,,0.0,0.0,,
-Network_Usage,0.0,2.0,,0.0,,0.0,
-Temperature,1.0,1.0,,0.0,,,0.0
+,Z-Score (>3),IQR,Seuil >80,Pourcentage,Seuil >12,Seuil >150,Seuil >70
+CPU_Usage,0.0,0.0,179.0,12.430555555555555,,,
+Memory_Usage,0.0,0.0,,22.84722222222222,329.0,,
+Network_Usage,0.0,0.0,,42.36111111111111,,610.0,
+Temperature,0.0,0.0,,0.0,,,0.0
