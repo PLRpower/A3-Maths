@@ -4,12 +4,18 @@ A collection of mathematical modeling and analysis projects using Python as a co
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Mathematical Modules (Boucles)](#mathematical-modules-boucles)
-- [Key Mathematical Concepts](#key-mathematical-concepts)
-- [Technologies](#technologies)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
+- [Overview](#-overview)
+- [Mathematical Modules (Boucles)](#-mathematical-modules-boucles)
+  - [Boucle 1: Game Theory](#-boucle-1-game-theory)
+  - [Boucle 2: Descriptive Statistics](#-boucle-2-descriptive-statistics)
+  - [Boucle 3: IT Systems Statistics & Analysis](#-boucle-3-it-systems-statistics--analysis)
+  - [Boucle 4: Green IT - Algorithmic Complexity Analysis](#-boucle-4-green-it---algorithmic-complexity-analysis)
+  - [Boucle 5: Arithmetic & Cryptography](#-boucle-5-arithmetic--cryptography)
+  - [Boucle 6: Graph Theory & Optimization](#-boucle-6-graph-theory--optimization)
+  - [Programming Paradigms - Learning Activity](#-programming-paradigms---learning-activity)
+- [Technologies](#-technologies)
+- [Project Highlights](#-project-highlights)
+- [Contributing](#-contributing)
 
 ## 🎯 Overview
 
